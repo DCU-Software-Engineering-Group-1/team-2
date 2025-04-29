@@ -1,0 +1,29 @@
+name: Vue Lint CI
+
+on:
+  push:
+    branches: [ devops-frontend ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install ESLint and Vue plugin
+        run: |
+          cd frontend
+          npm init -y
+          npm install eslint eslint-plugin-vue --save-dev
+
+      - name: Run ESLint on .vue files
+        run: |
+          cd frontend
+          npx eslint . --ext .vue

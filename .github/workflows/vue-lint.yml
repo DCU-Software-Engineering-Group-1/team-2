@@ -1,0 +1,30 @@
+name: Vue Lint CI
+
+on:
+  push:
+    branches: [ devops-frontend ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Initialize npm and install ESLint
+        run: |
+          cd frontend
+          npm init -y
+          npm install eslint --save-dev
+          npx eslint --init  # 이건 처음에만 직접 수동 입력 필요
+
+      - name: Run Lint
+        run: |
+          cd frontend
+          npx eslint . --ext .vue

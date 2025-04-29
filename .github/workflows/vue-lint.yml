@@ -17,14 +17,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Initialize npm and install ESLint
+      - name: Install ESLint and Vue plugin
         run: |
           cd frontend
           npm init -y
-          npm install eslint --save-dev
-          npx eslint --init  # 이건 처음에만 직접 수동 입력 필요
+          npm install eslint eslint-plugin-vue --save-dev
 
-      - name: Run Lint
+      - name: Run ESLint on .vue files
         run: |
           cd frontend
           npx eslint . --ext .vue

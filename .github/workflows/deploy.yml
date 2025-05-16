@@ -26,5 +26,5 @@ jobs:
         working-directory: ./frontend
 
       - name: Run Cypress tests
-        run: npx cypress run
+        run: npx cypress run --config baseUrl=http://43.203.36.43
         working-directory: ./frontend

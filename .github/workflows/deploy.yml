@@ -14,17 +14,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js 18
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
       - name: Install dependencies
-        run: |
-          cd frontend
-          npm ci
+        run: npm ci
+        working-directory: ./frontend
 
       - name: Run Cypress tests
-        run: |
-          cd frontend
-          npx cypress run
+        run: npx cypress run
+        working-directory: ./frontend

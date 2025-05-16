@@ -1,15 +1,15 @@
-name: Deploy Flask + Vue App
+name: Cypress Tests
 
 on:
   push:
-    branches: [main]  # 또는 사용 중인 브랜치
+    branches: [main]
 
 jobs:
-  build-and-deploy:
+  cypress-run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -17,30 +17,12 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Build Frontend
+      - name: Install dependencies
+        run: |
+          cd frontend  
+          npm ci
+
+      - name: Run Cypress tests
         run: |
           cd frontend
-          npm install
-          npm run build
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install Backend Requirements
-        run: |
-          cd backend
-          pip install -r requirements.txt
-
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            cd ~/flask_backend
-            git pull origin main
-            docker-compose down
-            docker-compose up -d --build
+          npx cypress run

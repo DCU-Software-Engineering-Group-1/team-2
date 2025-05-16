@@ -1,8 +1,9 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "http://localhost:3000", // 실제 Vue 앱 주소로 수정 가능
-    supportFile: false
+    baseUrl: 'http://43.203.36.43', // EC2 서버 주소
+    supportFile: false,
+    specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
   },
 });

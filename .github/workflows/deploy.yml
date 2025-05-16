@@ -3,8 +3,6 @@ name: Cypress Tests
 on:
   push:
     branches: [devops-frontend]
-  pull_request:
-    branches: [devops-frontend]
 
 jobs:
   cypress-run:
@@ -23,8 +21,10 @@ jobs:
         run: npm install
         working-directory: ./frontend
 
+      - name: Wait for EC2 server to be ready
+        run: npx wait-on http://43.203.36.43
+        working-directory: ./frontend
+
       - name: Run Cypress tests
         run: npx cypress run
         working-directory: ./frontend
-        env:
-          CYPRESS_baseUrl: http://43.203.36.43

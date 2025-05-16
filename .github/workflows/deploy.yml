@@ -26,3 +26,5 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run
         working-directory: ./frontend
+        env:
+          CYPRESS_baseUrl: http://43.203.36.43
